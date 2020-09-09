@@ -1,2 +1,2 @@
-from .ImputeCrypticPhenotypes import main
+from .CrypticPhenoImpute import main
 main()

@@ -9,10 +9,13 @@ import sys
 import pickle
 import os
 import re
+import pkg_resources
 
-if __name__=='__main__':
+DATA_PATH = pkg_resources.resource_filename('CrypticPhenoImpute', 'Data/')
 
-    dis_table = pd.read_csv("../Data/TargetDiseaseCodes.txt",sep='\t',index_col="CODE")
+def main():
+
+    dis_table = pd.read_csv(DATA_PATH+"TargetDiseaseCodes.txt",sep='\t',index_col="CODE")
 
     parser = argparse.ArgumentParser(description='Imputes the cryptic phenotypes analyzed in Blair et al. 2020 into arbitrary clinical datasets.')
 
@@ -50,8 +53,8 @@ if __name__=='__main__':
 
     if args.encoding=='ICD10-CM':
         #load the HPO term table
-        hpo_table = pd.read_csv("../Data/HPOTable.txt",sep='\t',index_col="HPO_ICD10_ID")
-        model_table = pd.read_csv("../Data/ModelTable.txt",sep='\t',index_col="Disease ID")
+        hpo_table = pd.read_csv(DATA_PATH+"HPOTable.txt",sep='\t',index_col="HPO_ICD10_ID")
+        model_table = pd.read_csv(DATA_PATH+"ModelTable.txt",sep='\t',index_col="Disease ID")
 
         disease_hpo=model_table.loc[disease_code]['Annotated HPO Terms'].split(',')
         hpo_icd10_map = {hpo: hpo_table.loc[hpo]['ICD10'].split(';') for hpo in disease_hpo}
@@ -69,12 +72,12 @@ if __name__=='__main__':
         sampler=ClinicalDatasetSampler(currentClinicalDataset,0.5)
 
         vlpi_model=vLPI(sampler,model_table.loc[disease_code]['Max. Model Rank'])
-        vlpi_model.LoadModel('../Data/ICD10CM_Models/{0:s}.pth'.format(disease_code.replace(':','_')))
+        vlpi_model.LoadModel(DATA_PATH+'ICD10CM_Models/{0:s}.pth'.format(disease_code.replace(':','_')))
 
         ######## This code corrects variations in the order in which symptoms are stored that occurred between an earlier and the current version of the ClinicalDataset class
         ######## Clearly, this is less than ideal, but it wasn't worth refitting all of the models for this small change in storage that could be corrected.
         symptom_array=currentClinicalDataset.ReturnSparseDataMatrix()
-        with open('../Data/ICD10CM_Models/{0:s}_Index.pth'.format(disease_code.replace(':','_')),'rb') as f:
+        with open(DATA_PATH+'ICD10CM_Models/{0:s}_Index.pth'.format(disease_code.replace(':','_')),'rb') as f:
             model_hpo_index=pickle.load(f)
 
         new_order=[currentClinicalDataset.dxCodeToDataIndexMap[x] for x in model_hpo_index.keys()]
@@ -88,31 +91,31 @@ if __name__=='__main__':
         output_table.to_csv(args.output_file,sep='\t')
     else:
         if args.use_best==True:
-            features=pd.read_csv('../Data/ICD10UKBB_Models/{0:s}/TopModelFeatures.txt'.format(disease_code.replace(':','_')),sep='\t',header=None)
+            features=pd.read_csv(DATA_PATH+'ICD10UKBB_Models/{0:s}/TopModelFeatures.txt'.format(disease_code.replace(':','_')),sep='\t',header=None)
             currentClinicalDataset.IncludeOnly(features[0].values)
             symptom_array=currentClinicalDataset.ReturnSparseDataMatrix()
-            top_model=os.listdir('../Data/ICD10UKBB_Models/{0:s}/TopModel'.format(disease_code.replace(':','_')))
+            top_model=os.listdir(DATA_PATH+'ICD10UKBB_Models/{0:s}/TopModel'.format(disease_code.replace(':','_')))
             r=re.compile('.*.pth')
             top_model=list(filter(r.match,top_model))[0]
-            with open('../Data/ICD10UKBB_Models/{0:s}/TopModel/{1:s}'.format(disease_code.replace(':','_'),top_model),'rb') as f:
+            with open(DATA_PATH+'ICD10UKBB_Models/{0:s}/TopModel/{1:s}'.format(disease_code.replace(':','_'),top_model),'rb') as f:
                 model_dict = pickle.load(f)
             cp = model_dict['Model'].predict(symptom_array)
 
         else:
 
             cp = np.zeros((currentClinicalDataset.numPatients))
-            features=pd.read_csv('../Data/ICD10UKBB_Models/{0:s}/BaggedModelFeatures.txt'.format(disease_code.replace(':','_')),sep='\t')
+            features=pd.read_csv(DATA_PATH+'ICD10UKBB_Models/{0:s}/BaggedModelFeatures.txt'.format(disease_code.replace(':','_')),sep='\t')
             currentClinicalDataset.IncludeOnly(features['ICD10'].values)
             symptom_array=currentClinicalDataset.ReturnSparseDataMatrix()
 
 
-            all_models=os.listdir('../Data/ICD10UKBB_Models/{0:s}/BaggedModels'.format(disease_code.replace(':','_')))
+            all_models=os.listdir(DATA_PATH+'ICD10UKBB_Models/{0:s}/BaggedModels'.format(disease_code.replace(':','_')))
             r=re.compile('.*.pth')
             all_models=list(filter(r.match,all_models))
             num_models=0
             for model_string in all_models:
                 num_models+=1
-                with open('../Data/ICD10UKBB_Models/{0:s}/BaggedModels/{1:s}'.format(disease_code.replace(':','_'),model_string),'rb') as f:
+                with open(DATA_PATH+'ICD10UKBB_Models/{0:s}/BaggedModels/{1:s}'.format(disease_code.replace(':','_'),model_string),'rb') as f:
                     model_dict = pickle.load(f)
                 cp += model_dict['Model'].predict(symptom_array)
             cp/=num_models
