@@ -12,16 +12,15 @@ import re
 
 version = re.search(
     '^__version__\s*=\s*"(.*)"',
-    open('ImputeCrypticPhenotypes/ImputeCrypticPhenotypes.py').read(),
-    re.M
-    ).group(1)
+    open('CrypticPhenoImpute/CrypticPhenoImpute.py').read(),
+    re.M).group(1)
 
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="ImputeCrypticPhenotypes",
+    name="CrypticPhenoImpute",
     version=version,
     author="David Blair",
     author_email="david.blair@ucsf.edu",
@@ -40,7 +39,7 @@ setuptools.setup(
         'pandas>=1.0.5',
         'statsmodels>=0.11.1',
         'scipy>=1.5.2',
-        'scikit-learn=0.22.1',
+        'scikit-learn==0.22.1',
         'vlpi'
         ],
     classifiers=[

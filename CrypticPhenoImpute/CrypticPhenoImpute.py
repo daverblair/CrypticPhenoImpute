@@ -10,8 +10,12 @@ import pickle
 import os
 import re
 import pkg_resources
+import wget
 
 DATA_PATH = pkg_resources.resource_filename('CrypticPhenoImpute', 'Data/')
+MODEL_PATH = pkg_resources.resource_filename('CrypticPhenoImpute', 'Models/')
+
+__version__ = "0.0.1"
 
 def main():
 
