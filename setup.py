@@ -40,7 +40,8 @@ setuptools.setup(
         'statsmodels>=0.11.1',
         'scipy>=1.5.2',
         'scikit-learn==0.22.1',
-        'vlpi'
+        'vlpi',
+        'wget'
         ],
     classifiers=[
         "Programming Language :: Python :: 3",

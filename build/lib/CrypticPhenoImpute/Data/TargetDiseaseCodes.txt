@@ -1,0 +1,10 @@
+CODE	OMIM_HPO_ID	NAME
+A1AT	OMIM_ICD:86	Alpha-1-antitrypsin Deficiency
+COMP	OMIM_ICD:15	Complement Deficiency
+DBA	OMIM_ICD:89	Constitutional Red Blood Cell Aplasia
+HHT	OMIM_ICD:108	Hereditary Hemorrhagic Telangiectasia
+HMSN	OMIM_ICD:113	Hereditary Motor and Sensory Neuropathy
+MAR	OMIM_ICD:120	Marfan Syndrome
+NF	OMIM_ICD:125	Neurofibromatosis
+22Q	OMIM_ICD:129	22q Deletion Syndrome
+PCKD	OMIM_ICD:132	Polycystic Kidney Disease

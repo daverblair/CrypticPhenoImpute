@@ -1,2 +1,1 @@
 recursive-include CrypticPhenoImpute/Data/*
-include CrypticPhenoImpute/Models
