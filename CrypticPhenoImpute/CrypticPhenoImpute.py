@@ -15,26 +15,13 @@ import wget
 DATA_PATH = pkg_resources.resource_filename('CrypticPhenoImpute', 'Data/')
 MODEL_PATH = pkg_resources.resource_filename('CrypticPhenoImpute', 'Models/')
 
-try:
-    os.mkdir(MODEL_PATH)
-except FileExistsError:
-    pass
-
-try:
-    os.mkdir(MODEL_PATH+'ICD10UKBB_Models')
-except FileExistsError:
-    pass
-
-try:
-    os.mkdir(MODEL_PATH+'ICD10CM_Models')
-except FileExistsError:
-    pass
 
 
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 
 def main():
 
+    #fixed data loaded into memory
     dis_table = pd.read_csv(DATA_PATH+"TargetDiseaseCodes.txt",sep='\t',index_col="CODE")
     ukbb_model_table=pd.read_pickle(DATA_PATH+"ICD10-UKBB_ModelTable.pth")
 
@@ -49,6 +36,8 @@ def main():
     parser.add_argument("output_file",help="Path to the output file.",type=str)
 
     parser.add_argument("--use_best",help="Disease cryptic phenotype to be imputed. Must be in the following list: {0:s}. To see a key for the cryptic phenotypes, provide the argument KEY instead.".format(', '.join(list(dis_table.index))),action="store_true")
+
+    parser.add_argument("--model_path",help="By default, the program downlads and saves models to the same directory as the software package. This might not be allowed in all settings, so you can specify an alternative path to store models using this option.",type=str)
 
     args = parser.parse_args()
 
@@ -68,6 +57,25 @@ def main():
 
     #read the dataset into memory
     currentClinicalDataset.ReadDatasetFromFile(args.datafile,1,indexColumn=0, hasHeader=False,chunkSize = 50000)
+
+    #set up the model directories if they do not already exist
+    if args.model_path is not None:
+        MODEL_PATH=args.model_path
+
+    try:
+        os.mkdir(MODEL_PATH)
+    except FileExistsError:
+        pass
+
+    try:
+        os.mkdir(MODEL_PATH+'ICD10UKBB_Models')
+    except FileExistsError:
+        pass
+
+    try:
+        os.mkdir(MODEL_PATH+'ICD10CM_Models')
+    except FileExistsError:
+        pass
 
 
     #if using ICD10-CM, use the vlpi model directly. Requires translating from ICD10-CM into HPO terms
@@ -125,6 +133,8 @@ def main():
         output_table=pd.DataFrame({'Subject_ID':currentClinicalDataset.data.index,args.cryptic_phenotype:cp})
         output_table.set_index('Subject_ID',inplace=True,drop=True)
         output_table.to_csv(args.output_file,sep='\t')
+
+    # use the ICD10-UKBB encoding
     else:
         try:
             os.mkdir(MODEL_PATH+'ICD10UKBB_Models/{0:s}'.format(disease_code.replace(':','_')))
