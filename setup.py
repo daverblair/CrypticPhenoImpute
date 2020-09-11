@@ -29,7 +29,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/daverblair/CrypticPhenoImpute",
     packages=["CrypticPhenoImpute"],
-    package_data={'CrypticPhenoImpute': ['Data/*']},
+    package_data={'CrypticPhenoImpute': ['Data/*','Models/*']},
     entry_points = {
         "console_scripts": ['CrypticPhenoImpute = CrypticPhenoImpute.CrypticPhenoImpute:main']
         },

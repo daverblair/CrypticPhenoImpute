@@ -13,11 +13,11 @@ import pkg_resources
 import wget
 
 DATA_PATH = pkg_resources.resource_filename('CrypticPhenoImpute', 'Data/')
-MODEL_PATH = pkg_resources.resource_filename('CrypticPhenoImpute', 'Models/')
 
 
 
-__version__ = "0.0.5"
+
+__version__ = "0.0.7"
 
 def main():
 
@@ -61,6 +61,10 @@ def main():
     #set up the model directories if they do not already exist
     if args.model_path is not None:
         MODEL_PATH=args.model_path
+        if MODEL_PATH[-1]!='/':
+            MODEL_PATH+='/'
+    else:
+        MODEL_PATH = pkg_resources.resource_filename('CrypticPhenoImpute', 'Models/')
 
     try:
         os.mkdir(MODEL_PATH)

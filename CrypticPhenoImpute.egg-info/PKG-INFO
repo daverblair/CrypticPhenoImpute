@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: CrypticPhenoImpute
-Version: 0.0.4
+Version: 0.0.7
 Summary: Imputes cryptic phenotypes analyzed in Blair et al. into arbitrary clinical datasets.
 Home-page: https://github.com/daverblair/CrypticPhenoImpute
 Author: David Blair
