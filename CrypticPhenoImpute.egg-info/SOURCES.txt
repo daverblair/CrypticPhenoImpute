@@ -11,7 +11,8 @@ CrypticPhenoImpute.egg-info/entry_points.txt
 CrypticPhenoImpute.egg-info/requires.txt
 CrypticPhenoImpute.egg-info/top_level.txt
 CrypticPhenoImpute/Data/.DS_Store
+CrypticPhenoImpute/Data/Allowed_ICD10CM.txt
+CrypticPhenoImpute/Data/Allowed_ICD10UKBB.txt
 CrypticPhenoImpute/Data/HPOTable.txt
-CrypticPhenoImpute/Data/ICD10-UKBB_ModelTable.pth
 CrypticPhenoImpute/Data/ModelTable.txt
 CrypticPhenoImpute/Data/TargetDiseaseCodes.txt

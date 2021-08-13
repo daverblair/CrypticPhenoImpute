@@ -12,8 +12,9 @@ import pkg_resources
 import wget
 
 DATA_PATH = pkg_resources.resource_filename('CrypticPhenoImpute', 'Data/')
+MODEL_PATH = pkg_resources.resource_filename('CrypticPhenoImpute', 'Models/')
 icdClass=ICDUtilities()
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 def main():
 
@@ -77,28 +78,6 @@ def main():
     elif args.convertToUKBB and args.encoding=='ICD10-UKBB':
         raise ValueError("ICD10 data is reported to already use UKBB encoding. Please double check arguments.")
 
-    #set up the model directories if they do not already exist
-    if args.model_path is not None:
-        MODEL_PATH=args.model_path
-        if MODEL_PATH[-1]!='/':
-            MODEL_PATH+='/'
-    else:
-        MODEL_PATH = pkg_resources.resource_filename('CrypticPhenoImpute', 'Models/')
-
-    try:
-        os.mkdir(MODEL_PATH)
-    except FileExistsError:
-        pass
-
-    try:
-        os.mkdir(MODEL_PATH+'ICD10UKBB_Models')
-    except FileExistsError:
-        pass
-
-    try:
-        os.mkdir(MODEL_PATH+'ICD10CM_Models')
-    except FileExistsError:
-        pass
 
 
     hpo_table = pd.read_csv(DATA_PATH+"HPOTable.txt",sep='\t',index_col="HPO_ICD10_ID")
