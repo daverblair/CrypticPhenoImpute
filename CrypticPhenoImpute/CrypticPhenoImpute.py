@@ -53,7 +53,7 @@ def main():
 
 
     #read the dataset into memory
-    currentClinicalDataset.ReadDatasetFromFile(datafile,1,indexColumn=0, hasHeader=False,chunkSize = 50000)
+    currentClinicalDataset.ReadDatasetFromFile(args.datafile,1,indexColumn=0, hasHeader=False,chunkSize = 50000)
 
 
 
