@@ -7,5 +7,5 @@ HMSN	OMIM_ICD:113	Hereditary Motor and Sensory Neuropathy
 HEME	OMIM_ICD:83	Hemachromatosis
 PE	OMIM_ICD:99	Primary Erythermalgia
 A1AT	OMIM_ICD:86	Alpha-1-antitrypsin Deficiency
-PCKD	OMIM_ICD:132	Polycystic Kidney Disease
+ADPKD	OMIM_ICD:132	Polycystic Kidney Disease
 SCA	OMIM_ICD:138	Sickle Cell Anemia
