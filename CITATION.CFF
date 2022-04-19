@@ -6,6 +6,6 @@ authors:
   orcid: "https://orcid.org/0000-0002-7455-6488"
 title: "CrypticPhenoImpute: A software package for replicating the cryptic phenotypes described in Blair et al. 2022"
 version: 0.1.5
-doi: https://doi.org/10.5281/zenodo.6459597
+doi: 10.5281/zenodo.6459597
 date-released: 2022-04-13
 url: "https://github.com/daverblair/CrypticPhenoImpute"
