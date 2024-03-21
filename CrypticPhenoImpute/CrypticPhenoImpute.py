@@ -13,7 +13,7 @@ import wget
 
 DATA_PATH = pkg_resources.resource_filename('CrypticPhenoImpute', 'Data/')
 icdClass=ICDUtilities()
-__version__ = "0.1.5"
+__version__ = "0.1.6"
 
 def main():
 
@@ -46,9 +46,9 @@ def main():
 
     #initialize the ClinicalDataset class
     if args.encoding=='ICD10-CM':
-        currentClinicalDataset=ClinicalDataset()
+        currentClinicalDataset=ClinicalDataset({},use_old_ICD10_CM=True)
     else:
-        currentClinicalDataset=ClinicalDataset(ICDFilePaths=[ICD_PATH+'icd10_ukbb.txt',ICD_PATH+'ICD10_Chapters.txt'])
+        currentClinicalDataset=ClinicalDataset({},use_old_ICD_UKBB=True)
 
 
 

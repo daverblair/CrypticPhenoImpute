@@ -1,3 +1,2 @@
 [console_scripts]
 CrypticPhenoImpute = CrypticPhenoImpute.CrypticPhenoImpute:main
-

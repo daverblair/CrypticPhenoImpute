@@ -1,25 +1,29 @@
 Metadata-Version: 2.1
 Name: CrypticPhenoImpute
-Version: 0.1.5
+Version: 0.1.6
 Summary: Imputes cryptic phenotypes analyzed in Blair et al. into arbitrary clinical datasets.
 Home-page: https://github.com/daverblair/CrypticPhenoImpute
 Author: David Blair
 Author-email: david.blair@ucsf.edu
-License: UNKNOWN
-Description: # CrypticPhenoImpute
-        
-        This software imputes the cryptic phenotypes inferred in Blair et al. 2020 into arbitrary ICD10-CM/ICD10-UKBB datasets. It is for replication purposes only, and it will not perform de novo model inference. Note, model files are not distributed with the package and must be downloaded on the fly from GitHub. Therefore, imputation may take several minutes as files are downloaded prior to utilization.
-        
-        # Installation
-        
-        pip install CrypticPhenoImpute
-        
-        # Use
-        
-        This software is intended to be used from the command line. Please type 'python -m CrypticPhenoImpute -h' into the command line following installation for instructions.
-        
-Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: argparse>=1.1
+Requires-Dist: numpy>=1.19.0
+Requires-Dist: pandas>=1.0.5
+Requires-Dist: vlpi
+Requires-Dist: wget
+
+# CrypticPhenoImpute
+
+This software imputes the cryptic phenotypes inferred in Blair et al. 2020 into arbitrary ICD10-CM/ICD10-UKBB datasets. It is for replication purposes only, and it will not perform de novo model inference. Note, model files are not distributed with the package and must be downloaded on the fly from GitHub. Therefore, imputation may take several minutes as files are downloaded prior to utilization.
+
+# Installation
+
+pip install CrypticPhenoImpute
+
+# Use
+
+This software is intended to be used from the command line. Please type 'python -m CrypticPhenoImpute -h' into the command line following installation for instructions.
